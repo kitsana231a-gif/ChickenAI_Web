@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥚 Egg Counting AI Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="header">
+    <h1>🥚 Egg Counting AI Dashboard</h1>
+</div>
+
+<div class="container">
+
+    <div class="left">
+
+        <h2>📷 Live Camera</h2>
+
+        <div class="camera">
+            <img id="camera-feed" class="camera-feed" src="" alt="Live Camera">
+        </div>
+
+        <div style="margin-top:20px; text-align:center;">
+
+            <a id="downloadCSV" class="save-btn">
+                💾 ดาวน์โหลดไฟล์ CSV
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="right">
+
+        <div class="card">
+            <h3>🥚 จำนวนไข่ปัจจุบัน</h3>
+            <p><span id="count">0</span></p>
+        </div>
+
+        <div class="card">
+            <h3>📈 จำนวนไข่สะสม</h3>
+            <p><span id="total">0</span></p>
+        </div>
+
+        <div class="card">
+            <h3>🎯 Confidence</h3>
+            <p><span id="conf">0</span>%</p>
+        </div>
+
+        <div class="card">
+            <h3>⚡ FPS</h3>
+            <p><span id="fps">0</span></p>
+        </div>
+
+        <div class="card">
+            <h3>🟢 AI Status</h3>
+            <p id="status">ONLINE</p>
+        </div>
+
+        <div class="card">
+            <h3>🕒 เวลา</h3>
+            <p id="time">--:--:--</p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="history">
+
+    <h2>📋 ประวัติการตรวจจับ</h2>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>เวลา</th>
+                <th>จำนวนไข่</th>
+            </tr>
+        </thead>
+
+        <tbody id="history">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
