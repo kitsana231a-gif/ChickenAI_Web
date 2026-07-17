@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🥚 Egg Counting AI Dashboard</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -22,13 +22,12 @@
         <h2>📷 Live Camera</h2>
 
         <div class="camera">
-            <img src="{{ url_for('video') }}" class="camera-feed">
+            <img id="camera-feed" class="camera-feed" src="" alt="Live Camera">
         </div>
 
-        <!-- ปุ่มดาวน์โหลด CSV -->
         <div style="margin-top:20px; text-align:center;">
 
-            <a href="/download_csv" class="save-btn" download>
+            <a id="downloadCSV" class="save-btn">
                 💾 ดาวน์โหลดไฟล์ CSV
             </a>
 
@@ -93,7 +92,7 @@
 
 </div>
 
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script src="script.js"></script>
 
 </body>
 </html>

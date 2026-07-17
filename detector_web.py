@@ -100,11 +100,17 @@ dashboard_data = {
     "total": 0,
     "confidence": 0.0,
     "fps": 0.0,
-    "status": "ONLINE"
+    "status": "ONLINE",
+    "device": device_name,
+    "model":"best1.pt",
+    "tracker":"ByteTrack"
 }
 
 track_history = {}
+track_last_seen = {}
+
 counted_ids = set()
+
 prev = time.time()
 
 def generate_frames():
@@ -115,6 +121,7 @@ def generate_frames():
     global prev
     global confidence
     global dashboard_data
+    global last_frame
 
     while True:
 
@@ -122,6 +129,8 @@ def generate_frames():
 
         if not ret:
             break
+        
+        last_frame = frame.copy()
 
         results = model.track(
             frame,
@@ -201,6 +210,7 @@ def generate_frames():
 
                     # อัปเดตตำแหน่งล่าสุดของ ID
                     track_history[track_id] = cy
+                    track_last_seen[track_id] = time.time()
 
         cv2.line(frame,(0,LINE_Y),(640,LINE_Y),(0,0,255),3)
 
@@ -214,6 +224,23 @@ def generate_frames():
         dashboard_data["confidence"] = round(confidence, 1)
         dashboard_data["fps"] = round(fps, 1)
         dashboard_data["status"] = "ONLINE"
+
+# ==========================
+# Clear old Track IDs
+# ==========================
+
+    current_time = time.time()
+
+    expired_ids = [
+        tid for tid, t in track_last_seen.items()
+        if current_time - t > 3
+]
+
+    for tid in expired_ids:
+
+        track_last_seen.pop(tid, None)
+        track_history.pop(tid, None)
+        counted_ids.discard(tid)
 
         cv2.putText(frame,f"FPS : {fps:.1f}",(20,35),0,0.75,(0,0,255),2)
         cv2.putText(frame,f"Detected : {detected}",(20,70),0,0.75,(255,255,0),2)
@@ -229,6 +256,32 @@ def generate_frames():
             frame +
             b'\r\n'
         )
+
+# ==========================
+# Capture Image
+# ==========================
+
+last_frame = None
+
+def capture_image():
+
+    global last_frame
+
+    if last_frame is None:
+        return False
+
+    os.makedirs("Capture", exist_ok=True)
+
+    filename = datetime.now().strftime(
+        "Capture/capture_%Y%m%d_%H%M%S.jpg"
+    )
+
+    cv2.imwrite(filename, last_frame)
+
+    print(f"Saved : {filename}")
+
+    return filename
+
 # ==========================
 # ส่งข้อมูลให้ Dashboard
 # ==========================

@@ -1,8 +1,12 @@
 from flask import Flask, render_template, Response, jsonify, send_file
+from flask_cors import CORS
 import detector_web
 from detector_web import generate_frames, get_status
 
+import os
+
 app = Flask(__name__)
+CORS(app)
 
 # ==========================
 # หน้าเว็บ
@@ -30,12 +34,39 @@ def video():
 def data():
     return jsonify(get_status())
 
+
+# ==========================
+# Capture Image
+# ==========================
+@app.route("/capture")
+def capture():
+
+    detector_web.capture_image()
+
+    return jsonify({
+        "success": True,
+        "message": "Image Saved Successfully"
+    })
+
+
+# ==========================
+# Reset Counter
+# ==========================
+@app.route("/reset")
+def reset():
+
+    detector_web.count = 0
+    detector_web.counted_ids.clear()
+
+    return jsonify({
+        "success": True,
+        "message": "Counter Reset Complete"
+    })
+
+
 # ==========================
 # Download CSV
 # ==========================
-import os
-from flask import abort
-
 @app.route("/download_csv")
 def download_csv():
 
@@ -55,6 +86,8 @@ def download_csv():
         download_name=os.path.basename(filepath),
         mimetype="text/csv"
     )
+
+
 # ==========================
 # Run
 # ==========================
