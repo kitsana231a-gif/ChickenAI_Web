@@ -1,0 +1,223 @@
+/* ===========================
+   Egg Counting AI Dashboard
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#edf3fa;
+}
+
+/* ===========================
+   Header
+=========================== */
+
+.header{
+    background:#1565c0;
+    color:white;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 3px 10px rgba(0,0,0,.2);
+}
+
+.header h1{
+    font-size:36px;
+}
+
+/* ===========================
+   Layout
+=========================== */
+
+.container{
+    display:flex;
+    gap:20px;
+    padding:20px;
+}
+
+/* ===========================
+   Camera
+=========================== */
+
+.left{
+    flex:3;
+}
+
+.left h2{
+    margin-bottom:15px;
+}
+
+.camera{
+    width:100%;
+    height:650px;
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    border:3px solid #d9d9d9;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.camera-feed{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+/* ===========================
+   Download CSV Button
+=========================== */
+
+.save-btn{
+    display:inline-block;
+    text-decoration:none;
+    text-align:center;
+
+    margin-top:20px;
+    background:#28a745;
+    color:white;
+    border:none;
+    padding:14px 32px;
+    border-radius:12px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.25s;
+    box-shadow:0 4px 10px rgba(0,0,0,.2);
+}
+
+.save-btn:hover{
+    background:#218838;
+    transform:translateY(-2px);
+    color:white;
+}
+
+.save-btn:active{
+    transform:scale(0.97);
+}
+
+/* ===========================
+   Right Panel
+=========================== */
+
+.right{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+/* ===========================
+   Card
+=========================== */
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:18px;
+    text-align:center;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+}
+
+.card h3{
+    color:#555;
+    margin-bottom:10px;
+}
+
+.card p{
+    font-size:34px;
+    font-weight:bold;
+    color:#1565c0;
+}
+
+/* ===========================
+   History
+=========================== */
+
+.history{
+    margin:20px;
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+
+.history h2{
+    margin-bottom:15px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#1565c0;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width:1100px){
+
+    .container{
+        flex-direction:column;
+    }
+
+    .left{
+        width:100%;
+    }
+
+    .right{
+        width:100%;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:15px;
+    }
+
+    .camera{
+        height:450px;
+    }
+
+}
+
+@media (max-width:700px){
+
+    .right{
+        grid-template-columns:1fr;
+    }
+
+    .header h1{
+        font-size:26px;
+    }
+
+    .camera{
+        height:300px;
+    }
+
+    .card p{
+        font-size:28px;
+    }
+
+    .save-btn{
+        width:100%;
+    }
+
+}
